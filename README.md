@@ -121,7 +121,7 @@ Follow these instructions to set up the development environment:
 
 1. **Clone the repository**:
    ```bash
-   git clone https://github.com/your-repo/coin-price-web.git
+   git clone https://github.com/dath-241/coin-price-web.git
    ```
 
 2. **Navigate into the project directory**:
