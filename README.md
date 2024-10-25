@@ -130,9 +130,9 @@ Follow these instructions to set up the development environment:
    ```
 
 3. **Install dependencies**:
-   - For Frontend (in the `/frontend` directory):
+   - For Frontend (in the `/dev_frontend` directory):
      ```bash
-     npm install
+     //This feature will be updated later
      ```
      
 4. **Start the development server**:
