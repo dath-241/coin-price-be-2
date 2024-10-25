@@ -204,6 +204,17 @@ For more details, please refer to the **Contributing Guide**.
 
 ### **Contact**
 
-For any questions or issues, please contact the project manager or reach out to the team via the project’s communication channel.
+Team Members: **Note that the Student ID will not be appear again in Meeting Minutes Reports**
+`
+| Họ và Tên           | Mã Số Sinh Viên |
+|---------------------|-----------------|
+| Bùi Thế Kỷ Cương    | 2210412         |
+| Phan Duệ Triết      | 2212609         |
+| Tống Xuân Lộc       | 2211934         |
+| Ngô Quang Bách      | 2110770         |
+| Thái Kim Long       | 2211899         |
+| Trần Ngọc Lâm Vỹ    | 2214061         |
+`
+
 
 ---
