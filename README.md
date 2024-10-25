@@ -206,14 +206,14 @@ For more details, please refer to the **Contributing Guide**.
 
 Team Members: **Note that the Student ID will not be appear again in Meeting Minutes Reports**
 
-| Họ và Tên           | Mã Số Sinh Viên |
-|---------------------|-----------------|
-| Bùi Thế Kỷ Cương    | 2210412         |
-| Phan Duệ Triết      | 2212609         |
-| Tống Xuân Lộc       | 2211934         |
-| Ngô Quang Bách      | 2110770         |
-| Thái Kim Long       | 2211899         |
-| Trần Ngọc Lâm Vỹ    | 2214061         |
+| Họ và Tên           | Mã Số Sinh Viên |         Roles         |
+|---------------------|-----------------|-----------------------|
+| Bùi Thế Kỷ Cương    | 2210412         |  PO                   |
+| Phan Duệ Triết      | 2212609         |  Dev                  |
+| Tống Xuân Lộc       | 2211934         |  Dev                  |
+| Ngô Quang Bách      | 2110770         |  Dev                  |    
+| Thái Kim Long       | 2211899         |  Dev                  |
+| Trần Ngọc Lâm Vỹ    | 2214061         |  Scrum Master & Dev   |
 
 
 
