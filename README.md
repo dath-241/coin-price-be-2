@@ -205,7 +205,7 @@ For more details, please refer to the **Contributing Guide**.
 ### **Contact**
 
 Team Members: **Note that the Student ID will not be appear again in Meeting Minutes Reports**
-`
+
 | Họ và Tên           | Mã Số Sinh Viên |
 |---------------------|-----------------|
 | Bùi Thế Kỷ Cương    | 2210412         |
@@ -214,7 +214,7 @@ Team Members: **Note that the Student ID will not be appear again in Meeting Min
 | Ngô Quang Bách      | 2110770         |
 | Thái Kim Long       | 2211899         |
 | Trần Ngọc Lâm Vỹ    | 2214061         |
-`
+
 
 
 ---
