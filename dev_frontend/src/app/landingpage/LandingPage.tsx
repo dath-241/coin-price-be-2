@@ -1,3 +1,5 @@
+"use client";
+
 import Container from "@/components/Container";
 import HeroSection from "./components/HeroSection";
 import LandingPageFooter from "./components/LandingPageFooter";
