@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 
 export default function LandingPageNavbar() {
@@ -8,7 +10,7 @@ export default function LandingPageNavbar() {
         alt="logo"
         width={200}
         height={200}
-        className="w-48 h-auto cursor-pointer rounded-xl"
+        className="w-48 h-16 cursor-pointer rounded-xl"
       />
 
       <div className="flex gap-4 w-fit h-fit">
