@@ -2,7 +2,7 @@
 
 import Image from "next/image";
 
-export default function LandingPageNavbar() {
+export default function Navbar() {
   return (
     <div className="w-full h-fit py-2 px-8 flex items-center justify-between fixed bg-[#DCF0FF] z-50">
       <Image

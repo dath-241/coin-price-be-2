@@ -3,9 +3,9 @@
 import { Fragment } from "react";
 import Image from "next/image";
 
-import Component1 from "../../../../public/landingpage/Component 1.svg";
-import Component2 from "../../../../public/landingpage/Component 2.svg";
-import Component3 from "../../../../public/landingpage/Component 3.svg";
+import Component3 from "@/public/landingpage/Component 3.svg";
+import Component1 from "@/public/landingpage/Component 1.svg";
+import Component2 from "@/public/landingpage/Component 2.svg";
 
 export default function HeroSection() {
   return (

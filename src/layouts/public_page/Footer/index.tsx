@@ -12,7 +12,7 @@ const linkUrl = {
   teamTelegram: "#",
 };
 
-export default function LandingPageFooter() {
+export default function Footer() {
   return (
     <div className="w-10/12 h-fit py-2 px-8 flex items-start justify-between bg-[#DCF0FF] my-20 ">
       <div className="w-1/4 h-full flex flex-col gap-2">
