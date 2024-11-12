@@ -1,26 +1,50 @@
 "use client";
-
+import {
+  Navbar,
+  NavbarBrand,
+  NavbarContent,
+  NavbarItem,
+  Button,
+} from "@nextui-org/react";
 import Image from "next/image";
+import Link from "next/link";
 
-export default function Navbar() {
+export default function PrivateNavbar() {
   return (
-    <div className="w-full h-fit py-2 px-8 flex items-center justify-between fixed bg-[#DCF0FF] z-50">
-      <Image
-        src="/logo.png"
-        alt="logo"
-        width={200}
-        height={200}
-        className="w-48 h-16 cursor-pointer rounded-xl"
-      />
-
-      <div className="flex gap-4 w-fit h-fit">
-        <button className="rounded-lg px-4 py-2 text-[#0094FF] font-bold hover:bg-blue-200">
-          Sign up
-        </button>
-        <button className="rounded-lg px-4 py-2 bg-[#0094FF] text-white font-bold hover:bg-blue-400">
-          Log in
-        </button>
-      </div>
-    </div>
+    <Navbar maxWidth="full" className="bg-[#DCF0FF]">
+      <NavbarBrand>
+        <Image
+          src="/logo.png"
+          alt="logo"
+          width={200}
+          height={200}
+          className="w-32 cursor-pointer rounded-xl"
+        />
+      </NavbarBrand>
+      <NavbarContent justify="end">
+        <NavbarItem className="hidden lg:flex">
+          <Button
+            as={Link}
+            color="primary"
+            href="#"
+            variant="flat"
+            radius="sm"
+            className="font-bold">
+            Sign In
+          </Button>
+        </NavbarItem>
+        <NavbarItem>
+          <Button
+            as={Link}
+            color="primary"
+            href="#"
+            variant="solid"
+            radius="sm"
+            className="text-white bg-primary-500 font-bold">
+            Sign Up
+          </Button>
+        </NavbarItem>
+      </NavbarContent>
+    </Navbar>
   );
 }

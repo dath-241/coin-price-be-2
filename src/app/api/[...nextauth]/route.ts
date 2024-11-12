@@ -14,7 +14,7 @@ const authOptions: NextAuthOptions = {
       if (!account) return false;
 
       //Get the access token from google account
-      const { accessToken } = account;
+      // const { accessToken } = account;
 
       //Use the accessToken to call Backend API
 

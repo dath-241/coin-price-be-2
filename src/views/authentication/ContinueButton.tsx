@@ -4,7 +4,7 @@ interface Props {
   onClick: () => void;
 }
 
-export default function ContinueButton({ onClick }: Props) {
+export default function ContinueButton({ }: Props) {
   // TODO: Implement the continue button component
   return <button>Continue</button>;
 }

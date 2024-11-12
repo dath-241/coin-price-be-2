@@ -6,11 +6,13 @@ import Image from "next/image";
 import Component3 from "@/public/landingpage/Component 3.svg";
 import Component1 from "@/public/landingpage/Component 1.svg";
 import Component2 from "@/public/landingpage/Component 2.svg";
+import { Button } from "@nextui-org/react";
+import Link from "next/link";
 
 export default function HeroSection() {
   return (
     <Fragment>
-      <div className="flex items-center justify-center w-fit h-fit mt-44">
+      <div className="flex items-center justify-center w-fit h-fit pt-20">
         <div className="w-[40rem] h-60 bg-[#6EC3FB] bg-opacity-30 blur-2xl" />
         <div className="absolute flex flex-col font-bold text-8xl">
           <span>Coin Price</span>
@@ -22,9 +24,10 @@ export default function HeroSection() {
         Connect you to the latest finance information!
       </span>
 
-      <button className="text-2xl font-bold bg-[#0094FF] text-white p-6 rounded-xl flex gap-4 hover:bg-blue-300 hover:text-black">
+
+      <Button as={Link} href="#" size="lg" radius="lg"  className="text-2xl font-bold bg-[#0094FF] text-white p-10">
         Get started for free
-      </button>
+      </Button>
 
       <span className="text-5xl font-bold w-fit h-fit">
         For your experience

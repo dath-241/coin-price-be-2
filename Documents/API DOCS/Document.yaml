@@ -1,0 +1,740 @@
+openapi: "3.0.3"
+info:
+  title: Coin price
+  version: "1.0"
+  description: |-
+    _This project is suitable for users who wish to monitor the cryptocurrency market, perform technical analysis, and automatically receive alerts based on price movements and technical indicators._  
+    ## Libraries used in the Project:
+
+    ### Spring Boot Dependencies
+    - **spring-boot-starter-web**: 
+      - GroupId: `org.springframework.boot`
+      - ArtifactId: `spring-boot-starter-web`
+
+    - **spring-boot-starter-data-jpa**: 
+      - GroupId: `org.springframework.boot`
+      - ArtifactId: `spring-boot-starter-data-jpa`
+
+    - **spring-boot-starter-security**:
+      - GroupId: `org.springframework.boot`
+      - ArtifactId: `spring-boot-starter-security`
+
+    ### Other:
+    - **Java-WebSocket**:
+      - GroupId: `org.java-websocket`
+      - ArtifactId: `Java-WebSocket`
+      - Version: `1.5.4`
+    
+    - **spring-boot-starter-tomcat**:
+      - GroupId: `org.springframework.boot`
+      - ArtifactId: `spring-boot-starter-tomcat`
+      - Version: `2.4.4`
+      - Scope: `provided`
+servers:
+  - url: http://104.214.171.0
+tags:
+  - name: auth-controller
+    description: Xác thực người dùng. Tạo tài khoản, đăng nhập, đăng ký, đăng xuất.
+  - name: price-controller
+    description: Dữ liệu thị trường coin.
+  - name: kline-controller
+    description: Giá theo Kline
+paths:
+  /auth/register:
+    post:
+      tags:
+        - auth-controller
+      summary: Tạo tài khoản
+      #operationID: register
+      requestBody:
+        description: Thông tin người dùng
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/RegisterBody"
+        required: true
+      responses:
+        "200":
+          description: Tạo tài khoản thành công
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SuccessRegister"
+        "401":
+          description: Lỗi tạo tài khoản!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Username này đã được đăng kí! hoặc Email này đã được đăng kí!
+                  error:
+                    type: string
+                    example: Unauthorized
+
+  /auth/login:
+    get:
+      tags:
+        - auth-controller
+      summary: Đăng nhập
+      #operationID: login
+      requestBody:
+        description: Đăng nhập vào hệ thống
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/LoginBody"
+        required: true
+      responses:
+        "200":
+          description: Đăng nhập thành công!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginSuccess"
+        "401":
+          description: Đăng nhập không thành công!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginFail"
+ 
+  /auth/loginWithEmail:
+    get:
+      tags:
+        - auth-controller
+      summary: Đăng nhập bằng email
+      #operationID: login
+      requestBody:
+        description: Đăng nhập vào hệ thống bằng email
+        content:
+          application/json:
+            schema:
+              type: object
+              properties:
+                email: 
+                  type: string
+                  example: toan123@gmail.com
+                password: 
+                  type: string
+                  example: toan789520
+        required: true
+      responses:
+        "200":
+          description: Đăng nhập thành công!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginSuccess"
+        "401":
+          description: Đăng nhập không thành công!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/LoginFail"
+
+  /auth/refreshToken:
+    get:
+      tags:
+        - auth-controller
+      summary: Refesh Token
+      description: Refesh Token
+      responses:
+        "200":
+          description: Thành công!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Yêu cầu refresh token thành công!
+                  status:
+                    type: string
+                    example: 200
+        "401":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Yêu cầu refresh token thất bại!
+                  status:
+                    type: string
+                    example: 401
+        "403":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  error:
+                    type: string
+                    example: Forbidden
+                  message:
+                    type: string
+                    example: Không tìm thấy token!
+                  status:
+                    type: string
+                    example: 403
+
+  /auth/logOut:
+    get:
+      tags:
+        - auth-controller
+      summary: Đăng xuất
+      description: Đăng xuất khỏi hệ thống
+      responses:
+        "200":
+          description: Thành công!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Đăng xuất thành công
+                  status:
+                    type: string
+                    example: 200
+
+  /auth/forgotPassword:
+    get:
+      tags:
+        - auth-controller
+      summary: Quên mật khẩu
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema: 
+            type: string
+            example: username
+      responses:
+        "200": 
+          content:
+            application/json:
+              schema:   
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Gửi email thành công, check thư tại, toan123@gmail.com
+                  status:
+                    type: string
+                    example: 200
+        "401":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail401"
+        "404":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Không có user này
+                  status:
+                    type: 
+                    example: 404
+  
+  /auth/resetPassword:
+    put:  
+      tags:
+        - auth-controller
+      summary: Đặt lại mật khẩu
+      parameters:
+        - name: email
+          in: query
+          required: true
+          schema: 
+            type: string
+            example: test123@gmail.com
+        - name: otpCode 
+          in: query
+          required: true
+          schema: 
+            type: string
+            example: 123
+      requestBody:
+        description: Nhập mật khẩu mới!
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                newPassword:
+                  type: string
+                  example: toan123456
+        required: true
+      responses:
+        "200":  
+          description: Cài lại mật khẩu thành công
+          content: 
+            application/json:
+              schema: 
+                type: object
+                properties:  
+                  message:
+                    type: string
+                    example: Đổi mật khẩu thành công, vui lòng đăng nhập lại.
+                  status: 
+                    type: string
+                    example: 200
+        "400":
+          description: Sai mã otp
+          content: 
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example:
+                  status: 
+                    type: string
+                    example:
+        
+
+    
+  /api/get-spot-price:
+    get:
+      tags:
+        - price-controller
+      summary: Lấy giá Spot thời gian thực
+      parameters:
+        - name: symbols
+          in: query
+          required: true
+          description: List of symbols to fetch the spot price for (e.g., BTC, ETH)
+          schema:
+            type: array
+            items:
+              type: string
+              example: BTCUSDT,ETHUSDT
+      responses:
+        "200":
+          description: Thành công!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                    example: BTCUSDT
+                  price:
+                    type: string
+                    example: "63953.02000000"
+                  eventTime:
+                    type: string
+                    example: 2024-10-18 22:21:00
+        "401":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail401"
+        "404":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail404"
+  
+  /api/get-marketcap:
+    get:
+      tags:
+        - price-controller
+      summary: Lấy giá market cap
+      parameters:
+        - name: symbols
+          in: query
+          required: true
+          description: Lấy giá market và tổng lượng
+          schema:
+            type: array
+            items:
+              type: string
+              example: bitcoin
+      responses:
+        "200":
+          description: Thành công!
+          # headers:
+          #   $ref: "#/components/headers/CommonHeaders"
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  marketdata:
+                    type: object
+                    properties:
+                      market-cap:
+                        type: object
+                        properties:
+                          usd:
+                            type: number
+                            format: double
+                            example: 1365331222628
+                      total_volume:
+                        type: object
+                        properties:
+                          usd:
+                            type: number
+                            format: double
+                            example: 23342517435
+
+        "401":
+          description: Thất bại!
+          # headers:
+          #   $ref: "#/components/headers/CommonHeaders"
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail401"
+        "404":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail404"
+  
+  /api/get-future-price:
+    get:
+      tags:
+        - price-controller
+      summary: Lấy giá hợp đồng tương lai thời gian thực
+      parameters:
+        - name: symbols
+          in: query
+          required: true
+          description: List of symbols to fetch the future price for (e.g., BTC, ETH)
+          schema:
+            type: array
+            items:
+              type: string
+              example: BTCUSDT,ETHUSDT
+      responses:
+        "200":
+          description: Thành công!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                    example: BTCUSDT
+                  price:
+                    type: string
+                    example: "54000.5000000"
+                  eventTime:
+                    type: string
+                    example: 2024-10-18 22:21:00
+        "401":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail401"
+        "404":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail404"
+  
+  /api/get-funding-rate:
+    get:
+      tags:
+        - price-controller
+      summary: Giá của hợp đồng tương lai không kỳ hạn
+      parameters:
+        - name: symbols
+          in: query
+          required: true
+          description: List of symbols to fetch the spot price for (e.g., BTC, ETH)
+          schema:
+            type: array
+            items:
+              type: string
+              example: BTCUSDT,ETHUSDT
+      responses:
+        "200":
+          description: Thành công!
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                    example: BTCUSDT
+                  price:
+                    type: string
+                    example: "63953.02000000"
+                  eventTime:
+                    type: string
+                    example: 2024-10-18 22:21:00
+        "401":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail401"
+        "404":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail404"
+  
+  /api/close-all-web:
+    delete:
+      tags:
+        - price-controller
+      description: Đóng toàn bộ websocket
+      responses:
+        "200":
+          description: OK
+
+  /api/vip1/get-kline:
+    get:
+      tags:
+        - kline-controller
+      summary: Lấy giá theo kline
+      parameters:
+        - name: symbols
+          in: query
+          required: true
+          description: List of symbols to fetch the price to kline for (e.g., BTC, ETH)
+          schema:
+            type: array
+            items:
+              type: string
+              example: BTCUSDT,ETHUSDT
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  symbol:
+                    type: string
+                    example: BTCUSDT
+                  eventTime:
+                    type: string
+                    example: 2024-10-21 13:56:57
+                  klineStartTime:
+                    type: string
+                    example: 2024-10-21 13:56:56
+                  klineCloseTime:
+                    type: string
+                    example: 2024-10-21 13:56:56
+                  openPrice:
+                    type: string
+                    example: "68871.99000000"
+                  closePrice:
+                    type: string
+                    example: "68871.99000000"
+                  highPrice:
+                    type: string
+                    example: "68871.99000000"
+                  lowPrice:
+                    type: string
+                    example: "68871.99000000"
+                  numberOfTrades:
+                    type: number
+                    example: 1
+                  baseAssetVolume:
+                    type: string
+                    example: "57.16375170"
+                  takerBuyVolume:
+                    type: string
+                    example: "0.00000000"
+                  takerBuyBaseVolume:
+                    type: string
+                    example: "0.00000000"
+                  volume:
+                    type: string
+                    example: "0.00083000"
+        "401":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail401"
+        "403":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail403"
+        "404":
+          description: Thất bại!
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/CommonFail404"
+
+components:
+  
+  schemas:
+    
+    RegisterBody:
+      type: object
+      properties:
+        email:
+          type: string
+          example: test123@gmail.com
+        name:
+          type: string
+          example: test
+        username:
+          type: string
+          example: testapi123
+        password:
+          type: string
+          example: coinprice123
+
+    SuccessRegister:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Đăng kí tài khoản thành công
+        result:
+          type: object
+          properties:
+            timestamp:
+              type: string
+              example: 2024-10-19T09:22:05.061+0000
+            status:
+              type: string
+              example: 200
+
+    LoginBody:
+      type: object
+      properties:
+        username:
+          type: string
+          example: test
+        password:
+          type: string
+          example: 123
+
+    LoginFail:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Sai tên đăng nhập hoặc mật khẩu
+        error:
+          type: string
+          example: Unauthorized
+    
+    LoginSuccess:
+      type: object
+      properties:
+        message:
+          type: string
+          example: Đăng nhập thành công
+        result:
+          type: object
+          properties:
+            timestamp:
+              type: string
+              example: 2024-10-19T10:02:27.104+0000
+            status:
+              type: string
+              example: 200
+
+    CommonFail401:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Unauthorized
+        message:
+          type: string
+          example: Phiên đăng nhập đã hết hạn
+        status:
+          type: string
+          example: 401
+    
+    CommonFail404:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Internal Server Error
+        message:
+          type: string
+          example: 404 Not Found
+        status:
+          type: string
+          example: 404
+    
+    CommonFail403:
+      type: object
+      properties:
+        error:
+          type: string
+          example: Forbidden
+        message:
+          type: string
+          example: Vip role không đáp ứng yêu cầu truy cập api!
+        status:
+          type: string
+          example: 403
+  
+  headers:
+    
+    CommonHeaders:
+      
+      connection:
+        description: Connection type
+        schema:
+          type: string
+          example: keep-alive
+      
+      content-type:
+        description: Content type of the response
+        schema:
+          type: string
+          example: application/json;charset=UTF-8
+      
+      date:
+        description: Date when the response was generated
+        schema:
+          type: string
+          format: date-time
+          example: Mon, 21 Oct 2024 05:52:13 GMT
+      
+      keep-alive:
+        description: Keep-alive timeout
+        schema:
+          type: string
+          example: timeout=20
+      
+      transfer-encoding:
+        description: Type of transfer encoding used
+        schema:
+          type: string
+          example: chunked

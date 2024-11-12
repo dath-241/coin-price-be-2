@@ -1,11 +1,11 @@
 import Container from "@/src/components/Container";
-import { Input } from "@nextui-org/react";
+import PrivateNavbar from "@/src/layouts/private_page/Navbar";
 
 
 export default function Page() {
   return (
     <Container>
-      <Input radius="md" startContent={"bla"} />
+      <PrivateNavbar />
     </Container>
   );
 }
