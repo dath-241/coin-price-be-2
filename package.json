@@ -10,13 +10,14 @@
   },
   "dependencies": {
     "@nextui-org/react": "^2.4.8",
+    "@phosphor-icons/react": "^2.1.7",
     "axios": "^1.7.7",
     "framer-motion": "^11.11.11",
     "highcharts-react-official": "^3.2.1",
     "next": "^15.0.4-canary.4",
-    "next-auth": "^4.24.10",
     "react": "^18",
     "react-dom": "^18",
+    "sonner": "^1.7.0",
     "tailwind-merge": "^2.5.4"
   },
   "devDependencies": {
