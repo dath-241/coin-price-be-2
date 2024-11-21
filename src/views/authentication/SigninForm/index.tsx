@@ -17,7 +17,6 @@ interface LoginFormData {
   identifier: string;
   password: string;
 }
-
 export default function SignInForm() {
   const router = useRouter();
 
