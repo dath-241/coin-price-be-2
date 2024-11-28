@@ -105,7 +105,7 @@ export default function SignInForm() {
       <div className="w-full flex gap-2 items-center justify-center">
         <span>Don't have an account?</span>
         <Link href="/signup" className="text-blue-400 hover:underline">
-          Sign up here
+          Get started now
         </Link>
       </div>
     </Form>
