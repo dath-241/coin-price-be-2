@@ -2,7 +2,7 @@
 
 import Container from "@/src/components/Container";
 
-export default function ProfilePage() {
+export default function LoginPage() {
   return (
     <Container className="bg-[#DCF0FF]">
       <h1>Login</h1>
