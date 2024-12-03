@@ -2,7 +2,7 @@
 
 import {Fragment, useEffect, useState } from "react";
 import { useSearchParams } from 'next/navigation';
-import { sampleUsers, User } from "@/src/types/user";
+import { sampleUsers, DetailUserInfo } from "@/src/types/user";
 
 
 export default function HeroSection() {
@@ -11,7 +11,7 @@ export default function HeroSection() {
   const searchParams = useSearchParams();
   const username = searchParams.get('username'); // Lấy username từ URL
 
-  const [user, setUser] = useState<User | null>(null);
+  const [user, setUser] = useState<DetailUserInfo | null>(null);
 
   useEffect(() => {
     if (username) {
