@@ -1,5 +1,5 @@
 import type { Config } from "tailwindcss";
-import { nextui } from "@nextui-org/react";
+import { nextui } from "@nextui-org/theme";
 
 const config: Config = {
   content: [
@@ -26,7 +26,7 @@ const config: Config = {
           1000: "#262626",
           1100: "#1f1f1f",
           1200: "#141414",
-          1300: "#000000"
+          1300: "#000000",
         },
         primary: {
           50: "#e6f4ff",
@@ -38,7 +38,7 @@ const config: Config = {
           600: "#0087e8",
           700: "#0069b5",
           800: "#00518c",
-          900: "#003e6b"
+          900: "#003e6b",
         },
         success: {
           50: "#ecfbf2",
@@ -50,7 +50,7 @@ const config: Config = {
           600: "#38c06f",
           700: "#2c9657",
           800: "#227443",
-          900: "#1a5933"
+          900: "#1a5933",
         },
         info: {
           50: "#eaf3f8",
@@ -62,7 +62,7 @@ const config: Config = {
           600: "#2976a7",
           700: "#205c82",
           800: "#194865",
-          900: "#13374d"
+          900: "#13374d",
         },
         warning: {
           50: "#fff9e6",
@@ -74,7 +74,7 @@ const config: Config = {
           600: "#e8ae00",
           700: "#b58800",
           800: "#8c6900",
-          900: "#6b5000"
+          900: "#6b5000",
         },
         error: {
           50: "#ffe9e6",
@@ -86,11 +86,37 @@ const config: Config = {
           600: "#e82300",
           700: "#b51b00",
           800: "#8c1500",
-          900: "#6b1000"
-        }
+          900: "#6b1000",
+        },
       },
     },
   },
-  plugins: [nextui()],
+  plugins: [
+    nextui({
+      addCommonColors: true,
+      themes: {
+        light: {
+          layout: {},
+          colors: {
+            danger: {
+              50: "#fbeaea",
+              100: "#f1bfbf",
+              200: "#eb9f9f",
+              300: "#e27474",
+              400: "#dc5959",
+              500: "#d32f2f",
+              600: "#c02b2b",
+              700: "#962121",
+              800: "#741a1a",
+              900: "#591414",
+              DEFAULT: "#d32f2f",
+              foreground: "#ffffff",
+            },
+          },
+        },
+      },
+    }),
+  ],
+  darkMode: "class",
 };
 export default config;

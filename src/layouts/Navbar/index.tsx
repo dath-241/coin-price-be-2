@@ -1,4 +1,6 @@
+import { H1 } from "@/src/components/Heading";
 import {
+  Avatar,
   Navbar,
   NavbarBrand,
   NavbarContent,
@@ -9,8 +11,8 @@ import Link from "next/link";
 
 export default function PrivateNavbar() {
   return (
-    <Navbar maxWidth="full">
-      <NavbarBrand >
+    <Navbar maxWidth="full" className="fixed">
+      <NavbarBrand className="flex gap-4">
         <Image
           src="/logo.png"
           alt="logo"
@@ -18,26 +20,13 @@ export default function PrivateNavbar() {
           height={200}
           className="w-32 cursor-pointer rounded-xl"
         />
+        <H1>Coin price - Admin</H1>
       </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-10" justify="center">
-        <NavbarItem>
-          <Link href="#">
-            Dashboard
-          </Link>
-        </NavbarItem>
-        <NavbarItem >
-          <Link href="#">
-            Markets
-          </Link>
-        </NavbarItem>
-        <NavbarItem>
-          <Link href="#">
-            Alert
-          </Link>
-        </NavbarItem>
-      </NavbarContent>
+      <NavbarContent
+        className="hidden sm:flex gap-10"
+        justify="center"></NavbarContent>
       <NavbarContent className="hidden sm:flex gap-4" justify="end">
-
+        <Avatar src="/user.svg" />
       </NavbarContent>
     </Navbar>
   );

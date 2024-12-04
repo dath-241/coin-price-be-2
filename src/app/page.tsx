@@ -1,7 +1,3 @@
-"use client";
-
-import LandingPage from "./landing_page/LandingPage";
-
-export default function Home() {
-  return <LandingPage />;
+export default async function Page() {
+  return <div />;
 }
