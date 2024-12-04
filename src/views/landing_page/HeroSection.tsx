@@ -18,6 +18,7 @@ export default function HeroSection() {
           <span>Coin Price</span>
           <span>Web Page</span>
           <span>Testing new feature</span>
+          <span>Testing new feature</span>
         </div>
       </div>
 
