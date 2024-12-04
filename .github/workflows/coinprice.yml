@@ -1,0 +1,42 @@
+# Sample workflow for building and deploying a Next.js site to GitHub Pages
+#
+# To get started with Next.js see: https://nextjs.org/docs/getting-started
+#
+name: Coin Price dev
+
+on:
+  # Runs on pushes targeting the default branch
+  push:
+    branches: ["development"]
+
+  # Allows you to run this workflow manually from the Actions tab
+  workflow_dispatch:
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+      - name: Setup Node
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"         
+      - name: Build and push Docker Image
+        run: |
+          echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_ACCESS_USER }}" --password-stdin
+          cd src/
+          docker build -t ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin-price .
+          docker push ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin-price
+          
+  # Deployment job
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull Docker image
+        run: |
+          docker stop coin-price || true 
+          docker rm coin-price || true
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/coin-price:latest
+          docker run -d -p 3000:3000 --name coin-price --env-file .env ${{ secrets.DOCKERHUB_USERNAME }}/coin-price:latest
