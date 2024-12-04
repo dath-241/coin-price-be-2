@@ -17,6 +17,7 @@ export default function HeroSection() {
         <div className="absolute flex flex-col font-bold text-8xl">
           <span>Coin Price</span>
           <span>Web Page</span>
+          <span>Testing new feature</span>
         </div>
       </div>
 
