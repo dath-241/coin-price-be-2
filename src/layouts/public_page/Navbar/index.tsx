@@ -26,7 +26,7 @@ export default function PublicNavbar() {
           <Button
             as={Link}
             color="primary"
-            href="#"
+            href="/signin"
             variant="flat"
             radius="sm"
             className="font-bold">
@@ -37,7 +37,7 @@ export default function PublicNavbar() {
           <Button
             as={Link}
             color="primary"
-            href="#"
+            href="/signup"
             variant="solid"
             radius="sm"
             className="text-white bg-primary-500 font-bold">

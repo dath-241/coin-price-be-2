@@ -1,7 +1,7 @@
 import Form from "@/src/components/Form";
 import Logo from "@/src/components/Logo";
 import { forgotPassword, resetPassword } from "@/src/libs/auth";
-import { Button, Input, Spacer } from "@nextui-org/react";
+import { Button, Input } from "@nextui-org/react";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";
 import { useEffect, useState } from "react";
@@ -22,9 +22,9 @@ export default function ResetPasswordForm({
   const [newPassword, setNewPassword] = useState<string>("");
   const [confirmPassword, setConfirmPassword] = useState<string>("");
 
-  const [isShowPassword, setIsShowPassword] = useState<Boolean>(false);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
   const [isShowConfirmPassword, setIsShowConfirmPassword] =
-    useState<Boolean>(false);
+    useState<boolean>(false);
 
   const [resendTime, setResendTime] = useState<number>(60);
 
@@ -150,7 +150,7 @@ export default function ResetPasswordForm({
       />
 
       <div className="w-full gap-2 flex items-center justify-center">
-        <span>You didn't get the email?</span>
+        <span>{"You didn't get the email?"}</span>
         {resendTime != 0 ? (
           <span className="text-blue-500 cursor-default">{`Resend after ${resendTime}s`}</span>
         ) : (

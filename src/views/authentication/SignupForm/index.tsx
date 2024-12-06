@@ -28,7 +28,7 @@ export default function SignUpForm() {
     password: "",
     confirmPassword: "",
   });
-  const [isShowPass, setisShowPass] = useState<Boolean>(false);
+  const [isShowPass, setisShowPass] = useState<boolean>(false);
 
   const Showpass = () => {
     setisShowPass(!isShowPass);

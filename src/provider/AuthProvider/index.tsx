@@ -1,5 +1,4 @@
 "use client";
-import { refreshToken } from "@/src/libs/auth";
 import { BasicUserInfo } from "@/src/types/user";
 import { createContext, ReactNode, useContext, useEffect } from "react";
 

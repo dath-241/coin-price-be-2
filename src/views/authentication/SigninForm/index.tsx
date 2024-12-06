@@ -25,7 +25,7 @@ export default function SignInForm() {
     identifier: "",
     password: "",
   });
-  const [isShowPassword, setIsShowPassword] = useState<Boolean>(false);
+  const [isShowPassword, setIsShowPassword] = useState<boolean>(false);
 
   const toggleShowPassword = () => {
     setIsShowPassword(!isShowPassword);
@@ -116,7 +116,7 @@ export default function SignInForm() {
       <ContinueButton onClick={handleSignIn} />
 
       <div className="w-full flex gap-2 items-center justify-center">
-        <span>Don't have an account?</span>
+        <span>{"Don't have an account?"}</span>
         <Link href="/signup" className="text-blue-400 hover:underline">
           Get started now
         </Link>

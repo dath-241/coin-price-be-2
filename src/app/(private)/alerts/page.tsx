@@ -22,14 +22,13 @@ async function fetchAlerts() {
   const token = res.data ?? cookieStore.get("token")?.value;
   const url = `${BaseUrl}/api/vip2/get/alerts`;
 
-  let triggerList: TriggerConditionData[] = [];
-  let indicatorList: IndicatorTrigerData[] = [];
-
   try {
     const res = await axios.get(url, {
       headers: customHeader(token),
     });
 
+    const triggerList: TriggerConditionData[] = [];
+    const indicatorList: IndicatorTrigerData[] = [];
     const list: any[] = res.data;
 
     for (const item of list) {
@@ -47,8 +46,8 @@ async function fetchAlerts() {
   } catch (error) {
     console.error(error);
     return {
-      triggerList,
-      indicatorList,
+      triggerList: [],
+      indicatorList: [],
     };
   }
 }

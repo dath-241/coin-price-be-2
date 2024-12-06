@@ -1,6 +1,6 @@
 "use client";
 import FlexBox from "@/src/components/Box/FlexBox";
-import { IndicatorTrigerData, TriggerConditionData } from "@/src/types/alert";
+import { IndicatorTrigerData } from "@/src/types/alert";
 import {
   Table,
   TableBody,
