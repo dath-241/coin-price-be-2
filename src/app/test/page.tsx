@@ -1,11 +1,12 @@
+"use client";
 import Container from "@/src/components/Container";
-import PrivateNavbar from "@/src/layouts/private_page/Navbar";
-
+import { refreshToken } from "@/src/libs/auth";
+import { Button } from "@nextui-org/react";
 
 export default function Page() {
   return (
     <Container>
-      <PrivateNavbar />
+      <Button onClick={() => refreshToken()}>Test</Button>
     </Container>
   );
 }

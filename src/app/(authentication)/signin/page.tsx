@@ -1,6 +1,6 @@
 "use client";
 import Container from "@/src/components/Container";
-import SignInForm from "@/src/views/Authentication/SigninForm";
+import SignInForm from "@/src/views/authentication/SigninForm";
 
 export default function SignInPage() {
   return (

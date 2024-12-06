@@ -9,7 +9,7 @@ import { useState } from "react";
 import ContinueButton from "../components/ContinueButton";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { log } from "console";
+import { signin } from "@/src/libs/auth";
 
 type LoginMethod = "email" | "username";
 
@@ -31,9 +31,22 @@ export default function SignInForm() {
     setIsShowPassword(!isShowPassword);
   };
 
+  const handleSignIn = async () => {
+    const res = await signin(
+      loginFormData.identifier,
+      loginFormData.password,
+      loginMethod
+    );
+    if (res.success) {
+      toast.success(res.message);
+      router.push("/alerts");
+    } else {
+      toast.error(res.message);
+    }
+  };
   return (
     <Form className="w-[24rem] sm:w-[28rem] bg-white shadow-lg p-8 rounded-lg">
-      <Logo className="w-52" />
+      <Logo className="w-52 h-[72px]" />
 
       <h1 className="text-4xl font-bold">Sign In</h1>
 
@@ -100,7 +113,7 @@ export default function SignInForm() {
         </Link>
       </div>
 
-      <ContinueButton />
+      <ContinueButton onClick={handleSignIn} />
 
       <div className="w-full flex gap-2 items-center justify-center">
         <span>Don't have an account?</span>

@@ -1,10 +1,11 @@
+"use client";
 import Container from "@/src/components/Container";
-import ForgetPassForm from "@/src/views/Authentication/ForgetPassForm";
+import ForgotPasswordForm from "@/src/views/authentication/ForgotPasswordForm";
 
-export default function ForgotPass() {
+export default function SignInPage() {
   return (
     <Container className="bg-[#DCF0FF] items-center justify-center">
-      <ForgetPassForm />
+      <ForgotPasswordForm />
     </Container>
   );
 }
