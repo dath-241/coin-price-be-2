@@ -1,0 +1,41 @@
+name: Coin Price dev
+
+on:
+  # Chạy khi có thay đổi được push lên nhánh development
+  push:
+    branches: ["development"]
+
+  # Cho phép chạy workflow thủ công từ tab Actions
+  workflow_dispatch:
+
+jobs:
+  # Build job
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout source code
+        uses: actions/checkout@v4
+
+      - name: Set up Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "20"  # Sử dụng Node.js phiên bản 20
+
+      - name: Build and push Docker image
+        run: |
+          echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_ACCESS_USER }}" --password-stdin
+          cd src/
+          docker build -t ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin-price .
+          docker push ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin-price
+
+  # Deployment job
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Pull Docker image and deploy
+        run: |
+          docker stop coin-price || true  # Nếu container không tồn tại, không báo lỗi
+          docker rm coin-price || true    # Nếu container không tồn tại, không báo lỗi
+          docker pull ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin-price:latest
+          docker run -d -p 3000:3000 --name coin-price --env-file .env ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin-price:latest
