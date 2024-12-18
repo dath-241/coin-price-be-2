@@ -1,7 +1,7 @@
 import FlexBox from "@/src/components/Box/FlexBox";
 import { H1, H3 } from "@/src/components/Heading";
-import { DeleteIndicatorTrigger } from "@/src/libs/alert";
-import { refreshToken } from "@/src/libs/auth";
+import { DeleteIndicatorTrigger } from "@/src/libs/serverAction/alert";
+import { refreshToken } from "@/src/libs/serverAction/auth";
 import { IndicatorTrigerData } from "@/src/types/alert";
 import {
   Button,

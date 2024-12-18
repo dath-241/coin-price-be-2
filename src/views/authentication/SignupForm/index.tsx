@@ -8,7 +8,7 @@ import Link from "next/link";
 import { useState } from "react";
 import { toast } from "sonner";
 import ContinueButton from "../components/ContinueButton";
-import { signup } from "@/src/libs/auth";
+import { signup } from "@/src/libs/serverAction/auth";
 import { useRouter } from "next/navigation";
 
 interface SignupForm {

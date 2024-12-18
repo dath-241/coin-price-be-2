@@ -1,6 +1,6 @@
 import Form from "@/src/components/Form";
-import { CreateUserIndicatorAlert } from "@/src/libs/alert";
-import { refreshToken } from "@/src/libs/auth";
+import { CreateUserIndicatorAlert } from "@/src/libs/serverAction/alert";
+import { refreshToken } from "@/src/libs/serverAction/auth";
 import { CreateUserIndicatorPayload } from "@/src/types/alert";
 import { Button, Input, Textarea } from "@nextui-org/react";
 import { useRouter } from "next/navigation";

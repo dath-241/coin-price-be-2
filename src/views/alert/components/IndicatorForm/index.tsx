@@ -1,7 +1,7 @@
 "use client";
 import Form from "@/src/components/Form";
-import { CreateIndicatorAlert } from "@/src/libs/alert";
-import { refreshToken } from "@/src/libs/auth";
+import { CreateIndicatorAlert } from "@/src/libs/serverAction/alert";
+import { refreshToken } from "@/src/libs/serverAction/auth";
 import {
   Condition,
   CONDITION,

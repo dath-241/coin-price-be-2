@@ -1,6 +1,6 @@
 import Form from "@/src/components/Form";
 import Logo from "@/src/components/Logo";
-import { forgotPassword, resetPassword } from "@/src/libs/auth";
+import { forgotPassword, resetPassword } from "@/src/libs/serverAction/auth";
 import { Button, Input } from "@nextui-org/react";
 import { Eye, EyeSlash } from "@phosphor-icons/react";
 import { useRouter } from "next/navigation";

@@ -23,7 +23,7 @@ export default async function RootLayout({
     <html suppressHydrationWarning lang="en">
       <body className={roboto.className}>
         <ThemeProviders>
-          <Toaster position="top-center" richColors />
+          <Toaster position="top-center" richColors closeButton />
           {children}
         </ThemeProviders>
       </body>

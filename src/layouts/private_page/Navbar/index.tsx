@@ -1,6 +1,6 @@
 "use client";
 import Logo from "@/src/components/Logo";
-import { signout } from "@/src/libs/auth";
+import { signout } from "@/src/libs/serverAction/auth";
 import UserProfileModal from "@/src/views/userProfile";
 import {
   Avatar,
@@ -9,7 +9,6 @@ import {
   DropdownMenu,
   DropdownTrigger,
   Navbar,
-  NavbarBrand,
   NavbarContent,
   NavbarItem,
   useDisclosure,
@@ -23,18 +22,22 @@ export default function PrivateNavbar() {
   const { isOpen, onOpenChange } = useDisclosure();
 
   return (
-    <Navbar maxWidth="full" className="fixed bg-[#DCF0FF] shadow-md">
-      <NavbarBrand>
-        <Logo className="w-32" />
-      </NavbarBrand>
-      <NavbarContent className="hidden sm:flex gap-10" justify="center">
+    <Navbar maxWidth="full" className="fixed bg-white shadow-sm">
+      <NavbarContent className="hidden sm:flex gap-10" justify="start">
         <NavbarItem>
-          <Link href="#" className="text-lg font-medium hover:underline">
-            Markets
+          <Logo className="w-32 h-[42px]" />
+        </NavbarItem>
+        <NavbarItem>
+          <Link
+            href="/market"
+            className="text-lg font-medium hover:underline hover:underline-offset-4">
+            Market
           </Link>
         </NavbarItem>
         <NavbarItem>
-          <Link href="/alerts" className="text-lg font-medium hover:underline">
+          <Link
+            href="/alerts"
+            className="text-lg font-medium hover:underline hover:underline-offset-4">
             Alerts
           </Link>
         </NavbarItem>

@@ -6,7 +6,7 @@ import {
   ResetPasswordPayload,
   SignupPayload,
 } from "@/src/types/user";
-import { BaseUrl, customHeader } from ".";
+import { BaseUrl, customHeader } from "..";
 import { cookies } from "next/headers";
 
 export async function signin(

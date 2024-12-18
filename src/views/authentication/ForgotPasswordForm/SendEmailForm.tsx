@@ -5,7 +5,7 @@ import Logo from "@/src/components/Logo";
 import { Button, Input, Spacer } from "@nextui-org/react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { forgotPassword } from "@/src/libs/auth";
+import { forgotPassword } from "@/src/libs/serverAction/auth";
 
 interface Props {
   setUserEmail: (email: string) => void;

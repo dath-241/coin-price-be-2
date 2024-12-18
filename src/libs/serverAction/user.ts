@@ -1,14 +1,14 @@
 "use server";
 
 import axios from "axios";
-import { BaseUrl, customHeader } from ".";
+import { BaseUrl, customHeader } from "..";
 import { cookies } from "next/headers";
 import {
   ChangeEmailPayload,
   ChangePasswordPayload,
   DepositCoinPayload,
   PurchaseVIPPayload,
-} from "../types/user";
+} from "../../types/user";
 
 export async function changePassword(payload: ChangePasswordPayload) {
   const cookieStore = cookies();

@@ -1,7 +1,7 @@
 import { twMerge } from "tailwind-merge";
 
 interface Props {
-  children?: string;
+  children?: any;
   className?: string;
 }
 

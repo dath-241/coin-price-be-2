@@ -1,7 +1,7 @@
 "use server";
 
 import axios from "axios";
-import { BaseUrl, customHeader } from ".";
+import { BaseUrl, customHeader } from "..";
 import {
   CreateIndicatorTriggerPayload,
   CreateSnoozePayload,

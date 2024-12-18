@@ -1,10 +1,10 @@
-import { refreshToken } from "@/src/libs/auth";
+import { refreshToken } from "@/src/libs/serverAction/auth";
 import {
   changeEmail,
   changePassword,
   deposit,
   purchaseVIP,
-} from "@/src/libs/user";
+} from "@/src/libs/serverAction/user";
 import { useAuth } from "@/src/provider/AuthProvider";
 import {
   ChangeEmailPayload,

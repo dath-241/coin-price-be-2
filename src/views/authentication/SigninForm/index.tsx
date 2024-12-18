@@ -9,7 +9,7 @@ import { useState } from "react";
 import ContinueButton from "../components/ContinueButton";
 import { useRouter } from "next/navigation";
 import { toast } from "sonner";
-import { signin } from "@/src/libs/auth";
+import { signin } from "@/src/libs/serverAction/auth";
 
 type LoginMethod = "email" | "username";
 
@@ -39,7 +39,7 @@ export default function SignInForm() {
     );
     if (res.success) {
       toast.success(res.message);
-      router.push("/alerts");
+      router.push("/market");
     } else {
       toast.error(res.message);
     }

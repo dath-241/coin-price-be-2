@@ -1,12 +1,10 @@
-"use client";
+import FlexBox from "@/src/components/Box/FlexBox";
 import Container from "@/src/components/Container";
-import { refreshToken } from "@/src/libs/auth";
-import { Button } from "@nextui-org/react";
 
-export default function Page() {
+export default async function Page() {
   return (
     <Container>
-      <Button onClick={() => refreshToken()}>Test</Button>
+      <FlexBox className="w-10/12"></FlexBox>
     </Container>
   );
 }

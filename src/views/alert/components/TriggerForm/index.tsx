@@ -1,7 +1,7 @@
 "use client";
 import Form from "@/src/components/Form";
-import { CreateTriggerAlert } from "@/src/libs/alert";
-import { refreshToken } from "@/src/libs/auth";
+import { CreateTriggerAlert } from "@/src/libs/serverAction/alert";
+import { refreshToken } from "@/src/libs/serverAction/auth";
 import {
   CONDITION,
   Condition,
