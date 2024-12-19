@@ -24,22 +24,35 @@ info:
       - GroupId: `org.java-websocket`
       - ArtifactId: `Java-WebSocket`
       - Version: `1.5.4`
-    
+      
     - **spring-boot-starter-tomcat**:
       - GroupId: `org.springframework.boot`
       - ArtifactId: `spring-boot-starter-tomcat`
       - Version: `2.4.4`
       - Scope: `provided`
 servers:
-  - url: http://104.214.171.0
+  - url: https://dath.hcmutssps.id.vn/
 tags:
+  - name: admin-controller
+    description: Dành cho quản trị viên, giúp quản lý người dùng và xem lịch sử thanh toán.
+  - name: user-controller 
+    description: Dành cho người dùng, xem thông tin và thay đổi thông tin, nạp tiền mua vip.
   - name: auth-controller
     description: Xác thực người dùng. Tạo tài khoản, đăng nhập, đăng ký, đăng xuất.
   - name: price-controller
     description: Dữ liệu thị trường coin.
   - name: kline-controller
     description: Giá theo Kline
+  - name: indicator-controller
+    description: Lấy chỉ báo kỹ thuật.
+  - name: snooze-condition-controller 
+    description: Giám sát và cung cấp tính năng tạm ngừng hoặc bỏ qua một cảnh báo trong một khoảng thời gian nhất định.
+  - name: user-indicators-controller
+    description: Cho phép người dùng tự code như plugin định nghĩa lại chỉ báo kỹ thuật.
+  - name: trigger-condition-controller
+    description: Hỗ trợ cảnh báo giá, trigger khi giá đạt các điều kiện.
 paths:
+
   /auth/register:
     post:
       tags:
@@ -75,7 +88,7 @@ paths:
                     example: Unauthorized
 
   /auth/login:
-    get:
+    put:
       tags:
         - auth-controller
       summary: Đăng nhập
@@ -102,7 +115,7 @@ paths:
                 $ref: "#/components/schemas/LoginFail"
  
   /auth/loginWithEmail:
-    get:
+    put:
       tags:
         - auth-controller
       summary: Đăng nhập bằng email
@@ -205,6 +218,12 @@ paths:
                   status:
                     type: string
                     example: 200
+        "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
 
   /auth/forgotPassword:
     get:
@@ -307,8 +326,6 @@ paths:
                   status: 
                     type: string
                     example:
-        
-
     
   /api/get-spot-price:
     get:
@@ -584,7 +601,7 @@ paths:
           description: Thất bại!
           content:
             application/json:
-              schema:
+              schema: 
                 $ref: "#/components/schemas/CommonFail403"
         "404":
           description: Thất bại!
@@ -592,11 +609,541 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/CommonFail404"
+            
+  /api/vip2/get/alerts:
+    get: 
+      tags:
+        - trigger-condition-controller
+      summary: thông báo
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  message: 
+                    type: string
+                    example: hehe
+        "401":
+          description: Chưa đăng nhập
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
+        "403":
+          description: Bị chặn
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail403"
+      
+  /api/vip2/delete/{symbol}:
+    delete:
+      tags:
+        - trigger-condition-controller
+      summary: Xóa cảnh báo cho coin.
+      parameters:
+        - name: symbol
+          in: path
+          required: true
+          description: Symbol will be deleted (e.g., bitcoin)
+          schema:
+            type: string
+            example: BNBUSDT
+        - name: triggerType
+          in: query
+          required: true
+          description: Type of Trigger 
+          schema: 
+            type: string
+            example: spot
+      responses:
+        "401":
+          description: Chưa đăng nhập
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
+        "403":
+          description: Bị chặn
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail403"
+
+  /api/vip2/create:
+    post:
+      tags:
+        - trigger-condition-controller
+      summary: tạo điều kiện cảnh báo giá.
+      parameters:
+        - name: triggerType
+          in: query
+          required: true
+          description: Type of Trigger 
+          schema: 
+            type: string
+            example: spot
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                    symbol: 
+                      type: string
+                      example: BTCUSDT
+                    condition:
+                      type: string
+                      example: ">="
+                    price:
+                      type: number
+                      example: 1000
+                    fundingRate:
+                      type: string
+                      example: "-0.000000001"
+                    notification_method: 
+                      type: string
+                      example: email
+      responses:
+        "401":
+          description: Chưa đăng nhập
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
+        "403":
+          description: Bị chặn
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail403"
+
+  /api/vip2/create/snooze:
+    post: 
+      tags:
+        - snooze-condition-controller
+      summary: tạo điều kiện bỏ qua cảnh báo
+      parameters:
+        - name: snoozeType
+          in: query
+          required: true
+          description: Type of Snooze 
+          schema: 
+            type: string
+            example: spot
+      requestBody:
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                symbol: 
+                  type: string
+                  example: BTCUSDT
+                conditionType:
+                  type: string
+                  example: ONCE_IN_DURATION
+                startTime: 
+                  type: string
+                  example: 2024-10-20T22:00:00
+                endTime:
+                  type: string
+                  example: 2024-10-21T01:30:00
+      responses:
+        "401":
+          description: Chưa đăng nhập
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
+        "403":
+          description: Bị chặn
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail403"
+  
+  /api/vip2/delete/snooze/{symbol}:
+    delete: 
+      tags:
+        - snooze-condition-controller
+      summary: xóa điều kiện bỏ qua cảnh báo
+      parameters:
+        - name: symbol
+          in: path
+          required: true
+          description: Symbol
+          schema: 
+            type: string
+            example: BTCUSDT
+        - name: snoozeType
+          in: query
+          required: true
+          description: Type of Snooze 
+          schema: 
+            type: string
+            example: spot
+      responses:
+        "401":
+          description: Chưa đăng nhập
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
+        "403":
+          description: Bị chặn
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail403"
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail404"
+
+  /api/vip3/indicators:
+    get: 
+      tags:
+        - indicator-controller
+      summary: Lấy chỉ báo kỹ thuật theo các phương thức có sẵn.
+      parameters:
+        - name: symbols
+          in: query
+          required: true
+          description: List of symbols to fetch the spot price for (e.g., BTC, ETH)
+          schema:
+            type: array
+            items:
+              type: string
+              example: BTCUSDT
+        - name: indicators
+          in: query
+          required: true
+          description: List of indicators (e.g., EMA, MA, BOLL )
+          schema: 
+            type: array
+            items:
+              type: string
+              example: EMA 
+        - name: days
+          in: query
+          required: false
+          description: "Default value: 1" 
+          schema: 
+            type: number
+            format: int32
+            example: 1
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  solana:
+                    type: object
+                    properties:
+                      symbol:
+                        type: string
+                        example: solana 
+                      values:
+                        type: object
+                        properties:
+                          MA: 
+                            type: string
+                            example: "161.4869783251875"
+                          EMA: 
+                            type: string
+                            example: "160.35706839198681"
+                      eventTime:
+                        type: string
+                        example: "2024-10-25 16:31:32"
+        "401":
+          description: Chưa đăng nhập
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
+        "403":
+          description: Bị chặn
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail403"
+        "404":
+          description: Not Found (Symbols or Indicator not Found)
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail404"
+        "500":
+          description: Lỗi khi thực thi script người dùng
+          content:  
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Internal Server Error
+                  message:
+                    type: string
+                    example: Lỗi khi thực thi script người dùng
+
+  /api/vip3/user-indicators:
+    post:
+      tags:
+        - user-indicators-controller
+      requestBody:
+        description: \\\n là xuống dòng
+        required: true
+        content:
+          application/json:
+            schema: 
+              type: object
+              properties:
+                name:
+                  type: string
+                  example: test123
+                code: 
+                  type: string
+                  example: def total = 0 \n for (int i = 0; i < size; i++) {\n total += prices[i] * time[i]\n}\n ILOVEU = total
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Đã thêm indicator ILOVEU thành công!
+                  status:
+                    type: string
+                    example: "200"
+        "401":
+          description: Chưa đăng nhập
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
+        "403":
+          description: Bị chặn
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail403"
+        "500":
+          description: Lỗi cú pháp
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: number
+                    example: 500
+                  error:
+                    type: string
+                    example: Internal Server Error
+                  message:
+                    type: string
+                    example: "Lỗi cú pháp trong mã Groovy: startup failed:\r\nScript1.groovy: 1: unexpected token: def @ line 1, column 1.\r\n def for = 10 \r\n ^\r\n\r\n1 error\r\n"
+
+  /admin/getAllUser:
+    get: 
+      tags:
+        - admin-controller
+      summary: Lấy danh sách tất cả người dùng hiện có trong hệ thống.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  username: 
+                    type: string
+                    example: toan123
+                  name: 
+                    type: string
+                    example: Toan 
+                  password:
+                    type: string
+                    example: "789520" 
+                  vip_role:
+                    type: number
+                    example: 0
+                  ip_list:
+                    type: array
+                    items:
+                      type: string
+                      example: ["127.0.0.1","127.0.0.2"]
+                  coin: 
+                    type: number
+                    example: 456
+                  otp:
+                    type: object
+                    properties:
+                      otpCode:
+                        type: string
+                        example: 4FE67T
+                      expiryDate:
+                        type: string
+                        example: 2024-11-11T02:36:21.852Z
+                      expired:  
+                        type: boolean
+                        example: true
+                  telegram_id:
+                    type: string
+                    example: 7197294193
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Không có người dùng trên hệ thống.
+
+  /admin/getHistoryPayment:
+    get: 
+      tags:
+        - admin-controller
+      summary: Lấy lịch sử thanh toán trong khoảng thời gian xác định.
+      parameters:
+        - name: from
+          in: query
+          schema:
+            type: integer
+            format: int32
+            example: 5
+        - name: to 
+          in: query
+          schema: 
+            type: integer
+            format: int32
+            example: 10
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  date: 
+                    type: string
+                    example: 2024-11-11T02:57:05.338Z
+                  username:
+                    type: string
+                    example: toan123
+                  email: 
+                    type: string
+                    example: toan01224551919@gmail.com
+                  amount:
+                    type: number
+                    example: 0
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema:
+                type: object
+                properties:
+                  message:
+                    type: string
+                    example: Không có thanh toán nào trong khoảng thời gian này.
+
+  /admin/removeUserByUsername:
+    delete:
+      tags:
+        - admin-controller
+      summary: Xóa người dùng dựa trên tên người dùng.
+      parameters:
+        - name: username
+          in: query
+          required: true
+          schema: 
+            type: string
+            example: toan123456
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 200
+                  message:
+                    type: string
+                    example: Xóa thành công người dùng có username này.
+        "404":
+          description: Not Found
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail404"
+
+  /admin/deleteAllUsername:
+    delete: 
+      tags:
+        - admin-controller
+      summary: Xóa tất cả người dùng trong hệ thống.
+      responses:
+        "200":
+          description: OK
+          content:
+            application/json:
+              schema: 
+                type: object
+                properties:
+                  status:
+                    type: string
+                    example: 200
+                  message:
+                    type: string
+                    example: Đã xóa toàn bộ người dùng ra khỏi hệ thống.
+
+  /api/info:
+   get: 
+    tags:
+      - user-controller
+    summary: Trả về thông tin người dùng.
+    responses:
+      "200":
+        description: OK
+        content:
+          application/json:
+            schema: 
+              type: object
+              example: hehe
+      "401":
+          description: Unauthorized
+          content:
+            application/json:
+              schema: 
+                $ref: "#/components/schemas/CommonFail401"
+
 
 components:
-  
   schemas:
-    
     RegisterBody:
       type: object
       properties:
@@ -703,38 +1250,3 @@ components:
         status:
           type: string
           example: 403
-  
-  headers:
-    
-    CommonHeaders:
-      
-      connection:
-        description: Connection type
-        schema:
-          type: string
-          example: keep-alive
-      
-      content-type:
-        description: Content type of the response
-        schema:
-          type: string
-          example: application/json;charset=UTF-8
-      
-      date:
-        description: Date when the response was generated
-        schema:
-          type: string
-          format: date-time
-          example: Mon, 21 Oct 2024 05:52:13 GMT
-      
-      keep-alive:
-        description: Keep-alive timeout
-        schema:
-          type: string
-          example: timeout=20
-      
-      transfer-encoding:
-        description: Type of transfer encoding used
-        schema:
-          type: string
-          example: chunked

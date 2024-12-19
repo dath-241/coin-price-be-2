@@ -9,9 +9,9 @@ import {
 import Image from "next/image";
 import Link from "next/link";
 
-export default function PrivateNavbar() {
+export default function PublicNavbar() {
   return (
-    <Navbar maxWidth="full" className="bg-[#DCF0FF]">
+    <Navbar maxWidth="full" className="bg-[#DCF0FF] fixed">
       <NavbarBrand>
         <Image
           src="/logo.png"
@@ -26,7 +26,7 @@ export default function PrivateNavbar() {
           <Button
             as={Link}
             color="primary"
-            href="#"
+            href="/signin"
             variant="flat"
             radius="sm"
             className="font-bold">
@@ -37,7 +37,7 @@ export default function PrivateNavbar() {
           <Button
             as={Link}
             color="primary"
-            href="#"
+            href="/signup"
             variant="solid"
             radius="sm"
             className="text-white bg-primary-500 font-bold">

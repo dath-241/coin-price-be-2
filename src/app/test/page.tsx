@@ -1,11 +1,10 @@
+import FlexBox from "@/src/components/Box/FlexBox";
 import Container from "@/src/components/Container";
-import PrivateNavbar from "@/src/layouts/private_page/Navbar";
 
-
-export default function Page() {
+export default async function Page() {
   return (
     <Container>
-      <PrivateNavbar />
+      <FlexBox className="w-10/12"></FlexBox>
     </Container>
   );
 }
