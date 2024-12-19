@@ -24,8 +24,12 @@ export default function HeroSection() {
         Connect you to the latest finance information!
       </span>
 
-
-      <Button as={Link} href="#" size="lg" radius="lg"  className="text-2xl font-bold bg-[#0094FF] text-white p-10">
+      <Button
+        as={Link}
+        href="/signup"
+        size="lg"
+        radius="lg"
+        className="text-2xl font-bold bg-[#0094FF] text-white p-10">
         Get started for free
       </Button>
 

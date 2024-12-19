@@ -2,7 +2,7 @@ name: Coin Price dev
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["development"]
+    branches: ["develop/docker"]
     paths-ignore:
       - README.md
       - Design/**
@@ -16,16 +16,16 @@ jobs:
     steps:
       - name: Set up Docker
         run: |
-            if ! command -v docker &> /dev/null; then
-              echo "Docker not found. Installing Docker..."
-              sudo apt-get update
-              sudo apt-get install -y docker.io
-              sudo systemctl start docker
-              sudo systemctl enable docker
-              sudo usermod -aG docker $USER
-            else
-              echo "Docker already installed"
-            fi
+          if ! command -v docker &> /dev/null; then
+            echo "Docker not found. Installing Docker..."
+            sudo apt-get update
+            sudo apt-get install -y docker.io
+            sudo systemctl start docker
+            sudo systemctl enable docker
+            sudo usermod -aG docker $USER
+          else
+            echo "Docker already installed"
+          fi
       - name: Checkout
         uses: actions/checkout@v4
       - name: Build and push Docker Image
@@ -36,7 +36,7 @@ jobs:
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
-          node-version: "20"         
+          node-version: "20"
   deploy:
     needs: build
     runs-on: self-hosted
