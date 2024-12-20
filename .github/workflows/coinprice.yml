@@ -31,8 +31,8 @@ jobs:
       - name: Build and push Docker Image
         run: |
           echo "${{ secrets.DOCKER_HUB_ACCESS_TOKEN }}" | docker login -u "${{ secrets.DOCKER_HUB_ACCESS_USER }}" --password-stdin
-          docker build -t ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin-price .
-          docker push ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin-price
+          docker build -t ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin_price .
+          docker push ${{ secrets.DOCKER_HUB_ACCESS_USER }}/coin_price
       - name: Setup Node
         uses: actions/setup-node@v4
         with:
@@ -43,7 +43,7 @@ jobs:
     steps:
       - name: Pull Docker image
         run: |
-          docker stop coin-price || true 
-          docker rm coin-price || true
-          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/coin-price:latest
-          docker run -d -p 3000:3000 --name coin-price ${{ secrets.DOCKERHUB_USERNAME }}/coin-price:latest
+          docker stop coin_price || true 
+          docker rm coin_price || true
+          docker pull ${{ secrets.DOCKERHUB_USERNAME }}/coin_price:latest
+          docker run -d -p 3000:3000 --name coin_price ${{ secrets.DOCKERHUB_USERNAME }}/coin_price:latest
