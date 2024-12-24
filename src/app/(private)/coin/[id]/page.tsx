@@ -1,7 +1,6 @@
 import Container from "@/src/components/Container";
 import { fetchCoinDetail, fetchCoinHistory } from "@/src/libs/serverFetch";
 import CoinDetail from "@/src/views/coin/CoinDetail";
-import { notFound } from "next/navigation";
 
 interface Params {
   id: string;
@@ -19,7 +18,11 @@ export default async function Page({ params }: Props) {
   const historyData = historyRes.data;
 
   if (!coinDetail) {
-    return notFound();
+    return (
+      <Container className="py-20 items-center justify-center">
+        <h1 className="text-4xl font-bold">Coin not found</h1>
+      </Container>
+    );
   }
 
   return (

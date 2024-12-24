@@ -34,6 +34,8 @@ export async function signin(
       headers: customHeader(null),
     });
 
+    console.log(res);
+
     const headers = res.headers["set-cookie"];
     if (!headers) {
       return {
