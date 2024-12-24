@@ -2,7 +2,7 @@ name: Coin Price dev
 on:
   # Runs on pushes targeting the default branch
   push:
-    branches: ["development"]
+    branches: ["develop/docker"]
     paths-ignore:
       - README.md
       - Design/**

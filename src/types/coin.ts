@@ -112,9 +112,12 @@ export type FuturePriceData = {
 };
 
 export type FundingRateData = {
-  symbol: string; // Example: "BTCUSDT"
-  price: string; // Example: "10000.00"
-  eventTime: string; // Example: "2024-10-18 22:21:00"
+  adjustedFundingRateCap: string;
+  adjustedFundingRateFloor: string;
+  eventTime: string;
+  fundingCountdown: string;
+  fundingIntervalHours: number;
+  fundingRate: string;
 };
 
 export type KlineData = {
