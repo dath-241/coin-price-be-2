@@ -11,15 +11,20 @@ This README provides a detailed description of the project, focusing on front-en
 
 ### **Table of Contents**
 
-1. [Project Objectives](#project-objectives)
-2. [Features](#features)
-3. [VIP Access Levels](#vip-access-levels)
-4. [Technical Stack](#technical-stack)
-5. [API Endpoints Overview](#api-endpoints-overview)
-6. [Front-end Modules](#front-end-modules)
-7. [Setup Instructions](#setup-instructions)
-8. [Project Structure](#project-structure)
-9. [SRS Documentation](#srs-documentation)
+- [**Crypto Price \& Alert System**](#crypto-price--alert-system)
+    - [**Project Overview**](#project-overview)
+    - [**Table of Contents**](#table-of-contents)
+    - [**Project Objectives**](#project-objectives)
+    - [**Features**](#features)
+    - [**VIP Access Levels**](#vip-access-levels)
+    - [**Technical Stack**](#technical-stack)
+    - [**API Endpoints Overview**](#api-endpoints-overview)
+    - [**Front-end Modules**](#front-end-modules)
+    - [**Setup Instructions**](#setup-instructions)
+    - [**Project Structure**](#project-structure)
+    - [**SRS Documentation**](#srs-documentation)
+    - [**Contributing**](#contributing)
+    - [**Contact**](#contact)
 
 ---
 
@@ -160,7 +165,38 @@ coin-price-web/
 │
 ├── Meeting Minutes/   
 │
-├── dev_frontend   
+├── public/ #Các tài nguyên tĩnh (hình ảnh, fonts, v.v.) sẽ được phục vụ trực tiếp
+│
+├── src/ #Thư mục chứa toàn bộ mã nguồn chính của dự án
+│   ├── app/ #Các trang chính của ứng dụng, tuân theo cấu trúc routing của Next.js
+│   │   ├── (authentication)/ #Các route về authenticate như signin, signup,...
+│   │   ├── (private)/ #Các route yêu cầu đăng nhập: market, alert,...
+│   │   ├── (public)/ #Các route không yêu cầu đăng nhập: landing page,...
+│   │   └── api/ #Các custom API route theo cấu trúc của Next.js
+│   │
+│   ├── component/ #Các component React dùng chung
+│   │
+│   ├── layouts/ #Các layout dùng chung cho các page
+│   │   ├── private_page/ #Layout sử dụng trong các page private
+│   │   └── public_page/ #Layout sử dụng trong các page public
+│   │
+│   ├── libs/ #Các hàm dùng để gọi API của Backend
+│   │   ├── serverAction/ #Định nghĩa các serverAction được chạy trên server
+│   │   └── serverFetch/ #Các hàm fetch data được chạy trên server
+│   │
+│   ├── provider/ #Chứa các React context provider
+│   │   ├── AuthProvider/ #Sử dụng cho việc xác thực người dùng
+│   │   └── ThemeProvider/ #Quản lý theme cho toàn trang web
+│   │
+│   ├── types/ #Định nghĩa các Typescript type hoặc interface sử dụng trong dự án
+│   │
+│   └── views/ #Các thành phần giao diện lớn kết hợp với các giao diện nhỏ
+│       ├── alert/ #UI alert
+│       ├── authentication/ #UI signin, signup,...
+│       ├── coin/ #UI xem thông tin coin
+│       ├── landing_page/ #UI landing_page
+│       ├── market/ #UI market
+│       └── user_profile/ #UI popup user profile
 │
 └── README.md
 ```

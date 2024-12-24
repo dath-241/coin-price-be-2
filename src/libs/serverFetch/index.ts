@@ -4,8 +4,6 @@ import axios from "axios";
 import { BasicUserInfo } from "@/src/types/user";
 import { IndicatorTrigerData, TriggerConditionData } from "@/src/types/alert";
 import { CoinData, CoinDetailData, CoinHistoryData } from "@/src/types/coin";
-import mockCoinData from "./mockCoinData.json";
-import mockHistoryData from "./mockHistoryData.json";
 
 export async function refreshToken() {
   const cookieStore = cookies();
@@ -151,12 +149,12 @@ export async function fetchCoinDetail(id: string) {
     "api-key": token,
   };
 
-  return {
-    success: true,
-    message: "Not implemented",
-    status: 404,
-    data: mockCoinData as any,
-  } as CustomResponse<CoinDetailData>;
+  // return {
+  //   success: true,
+  //   message: "Not implemented",
+  //   status: 404,
+  //   data: mockCoinData as any,
+  // } as CustomResponse<CoinDetailData>;
 
   try {
     const res = await axios.get(url, {
@@ -191,12 +189,12 @@ export async function fetchCoinHistory(
     "api-key": token,
   };
 
-  return {
-    success: true,
-    message: "Not implemented",
-    status: 404,
-    data: mockHistoryData as any,
-  } as CustomResponse<CoinHistoryData>;
+  // return {
+  //   success: true,
+  //   message: "Not implemented",
+  //   status: 404,
+  //   data: mockHistoryData as any,
+  // } as CustomResponse<CoinHistoryData>;
 
   try {
     const res = await axios.get(url, {
