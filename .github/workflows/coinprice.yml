@@ -46,6 +46,6 @@ jobs:
           docker stop coin_price || true 
           docker rm coin_price || true
           docker pull ${{ secrets.DOCKERHUB_USERNAME }}/coin_price:latest
-          sudo docker rm -f coin-price
+          sudo docker rm -f coin_price
           cd ~
           sudo docker run -d -p 3000:3000 --name coin_price --env-file .env ${{ secrets.DOCKERHUB_USERNAME }}/coin_price:latest
