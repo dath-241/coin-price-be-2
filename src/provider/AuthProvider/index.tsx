@@ -1,7 +1,7 @@
 "use client";
 import { BasicUserInfo } from "@/src/types/user";
 import { useRouter } from "next/navigation";
-import { createContext, ReactNode, useContext, useEffect } from "react";
+import { createContext, ReactNode, useContext } from "react";
 
 interface AuthContextType {
   basicUserInfor: BasicUserInfo;
