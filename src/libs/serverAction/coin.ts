@@ -7,7 +7,7 @@ export async function fetchCoinHistory(
   currency: string,
   day: number
 ) {
-  const token = process.env.geckoToken;
+  const token = process.env.geckoToken3;
   const url = `https://api.coingecko.com/api/v3/coins/${id}/market_chart?vs_currency=${currency}&days=${day}`;
   const header = {
     "Content-Type": "application/json",

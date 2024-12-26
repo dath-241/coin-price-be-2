@@ -55,7 +55,7 @@ The Crypto Price & Alert System is designed with the following key features:
 The system implements a tiered access control for features, with four primary levels:
 
 1. **VIP-0**: Basic access to view spot, future, and funding rate data.
-2. **VIP-1**: Additional access to view Kline (candlestick) charts.
+2. **VIP-1**: Additional access to view Kline.
 3. **VIP-2**: Includes VIP-1 features and enables users to set alerts (e.g., price differences, symbol alerts).
 4. **VIP-3**: Includes all previous features and grants access to advanced indicators (e.g., EMA, Bollinger Bands).
 
