@@ -1,7 +1,7 @@
 "use client";
 import Logo from "@/src/components/Logo";
 import { signout } from "@/src/libs/serverAction/auth";
-import UserProfileModal from "@/src/views/userProfile";
+import UserProfileModal from "@/src/views/user_profile";
 import {
   Avatar,
   Dropdown,

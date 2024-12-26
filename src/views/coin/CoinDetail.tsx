@@ -41,22 +41,26 @@ export default function CoinDetail({ historyData, coinDetail }: Props) {
           </FlexBox>
         </FlexBox>
         <FlexBox className="gap-4 items-center">
-          <H1 className="text-4xl">
-            ${coinDetail.market_data.current_price.usd.toLocaleString()}
-          </H1>
-          <span
-            className={`text-2xl flex items-center font-bold ${
-              coinDetail.market_data.price_change_percentage_24h > 0
-                ? "text-success"
-                : "text-danger"
-            }`}>
-            {coinDetail.market_data.price_change_percentage_24h > 0 ? (
-              <ArrowUp size={24} />
-            ) : (
-              <ArrowDown size={24} />
-            )}
-            {coinDetail.market_data.price_change_percentage_24h.toFixed(1)}%
-          </span>
+          {coinDetail.market_data.current_price.usd && (
+            <H1 className="text-4xl">
+              ${coinDetail.market_data.current_price.usd.toLocaleString()}
+            </H1>
+          )}
+          {coinDetail.market_data.price_change_percentage_24h && (
+            <span
+              className={`text-2xl flex items-center font-bold ${
+                coinDetail.market_data.price_change_percentage_24h > 0
+                  ? "text-success"
+                  : "text-danger"
+              }`}>
+              {coinDetail.market_data.price_change_percentage_24h > 0 ? (
+                <ArrowUp size={24} />
+              ) : (
+                <ArrowDown size={24} />
+              )}
+              {coinDetail.market_data.price_change_percentage_24h.toFixed(1)}%
+            </span>
+          )}
         </FlexBox>
         <CustomAccordion coinDetail={coinDetail} />
         <Divider />
@@ -76,17 +80,20 @@ export default function CoinDetail({ historyData, coinDetail }: Props) {
           <HistoryChart id={coinDetail.id} historyData={historyData} />
         )}
         <FlexBox className="flex-col gap-2">
-          <Accordion defaultExpandedKeys={["description"]}>
-            <AccordionItem key="description" title={<H1>Description</H1>}>
-              <span
-                dangerouslySetInnerHTML={{
-                  __html: coinDetail.description.en.replace(
-                    /(?:\r\n|\r|\n)/g,
-                    "<br />"
-                  ),
-                }}></span>
-            </AccordionItem>
-          </Accordion>
+          {coinDetail.description.en && (
+            <Accordion defaultExpandedKeys={["description"]}>
+              <AccordionItem key="description" title={<H1>Description</H1>}>
+                <span
+                  dangerouslySetInnerHTML={{
+                    __html: coinDetail.description.en.replace(
+                      /(?:\r\n|\r|\n)/g,
+                      "<br />"
+                    ),
+                  }}></span>
+              </AccordionItem>
+            </Accordion>
+          )}
+          <Divider />
         </FlexBox>
       </FlexBox>
     </FlexBox>
