@@ -12,6 +12,6 @@ RUN npm install
 
 # Copy toàn bộ mã nguồn vào container
 COPY . .
-
+RUN npm run build
 # Chạy ứng dụng ở chế độ production (Next.js)
 CMD ["npm", "run", "start"]
