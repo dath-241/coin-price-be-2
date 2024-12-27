@@ -17,17 +17,13 @@ COPY . .
 RUN npm run build
 
 # 2. Run Stage
-FROM node:18-alpine
-
-# Copy node_modules từ stage 1
-WORKDIR /app
+FROM builder as production
 
 # Copy built application from builder stage
 COPY --from=builder /app/.next ./.next
-COPY --from=builder /app/node_modules ./node_modules
-COPY --from=builder /app/package.json ./
 COPY --from=builder /app/public ./public
-COPY --from=builder /app/next.config.js ./
+COPY --from=builder /app/node_modules ./node_modules
+COPY --from=builder /app/package.json ./package.json
 
 # Expose port
 EXPOSE 3000
