@@ -4,6 +4,8 @@ services:
     image: pdtriet/coin_price
     ports:
       - "3000:3000"
+    env_file:
+      - .env
     restart: unless-stopped
     labels:
       - "com.centurylinklabs.watchtower.enable=true"
