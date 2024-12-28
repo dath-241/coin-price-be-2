@@ -989,27 +989,412 @@ export class SnoozeOperation {
 // User's Indicator Operation
 export class UserIndicatorOperation {
   constructor() {}
-  public async createIndicator() {}
+  public async createIndicator(payload: { name: string; code: string }): Promise<CustomResponse<any>> {
+    const url = `${BackEndBaseURL}/api/vip3/user-indicators`;
+    try {
+      const response = await axios.post(url, payload, { headers });
+      return {
+        success: response.status === 200,
+        message: response.data.message || "Indicator created successfully.",
+        data: response.data,
+        status: response.status,
+      } as CustomResponse<any>;
+    } catch (error: any) {
+      console.error(error);
+
+      if (error.response) {
+        const status = error.response.status;
+        let message = "An error occurred.";
+
+        switch (status) {
+          case 401:
+            message = "Not logged in. Please log in to proceed.";
+            break;
+          case 403:
+            message = "Access denied.";
+            break;
+          case 500:
+            message =
+              error.response.data.message ||
+              "Syntax error in the Groovy script provided.";
+            break;
+          default:
+            message = error.response.data.message || "An unexpected error occurred.";
+        }
+
+        return {
+          success: false,
+          message: message,
+          data: null,
+          status: status,
+        } as CustomResponse<any>;
+      } else {
+        return {
+          success: false,
+          message: "Unable to connect to the server.",
+          data: null,
+          status: 0,
+        } as CustomResponse<any>;
+      }
+    }
+  }
 }
 
 // Trigger Operation
 export class TriggerOperation {
   constructor() {}
 
-  public async getAlert() {}
+  public async getAlert(): Promise<CustomResponse<any[]>> {
+    const url = `${BackEndBaseURL}/api/vip2/get/alerts`;
+    try {
+      const response = await axios.get(url, { headers });
+      if (response.status === 200) {
+        return {
+          success: true,
+          message: "Alerts fetched successfully.",
+          data: response.data,
+          status: response.status,
+        } as CustomResponse<any[]>;
+      }
 
-  public async createTrigger() {}
+      return {
+        success: false,
+        message: "Unexpected response.",
+        data: [],
+        status: response.status,
+      } as CustomResponse<any[]>;
+    } catch (error: any) {
+      console.error(error);
 
-  public async deleteTrigger() {}
+      if (error.response) {
+        const status = error.response.status;
+        let message = "An error occurred.";
+
+        switch (status) {
+          case 401:
+            message = "Not logged in. Please log in to proceed.";
+            break;
+          case 403:
+            message = "Access denied.";
+            break;
+          default:
+            message = error.response.data.message || "An unexpected error occurred.";
+        }
+
+        return {
+          success: false,
+          message: message,
+          data: [],
+          status: status,
+        } as CustomResponse<any[]>;
+      } else {
+        return {
+          success: false,
+          message: "Unable to connect to the server.",
+          data: [],
+          status: 0,
+        } as CustomResponse<any[]>;
+      }
+    }
+  }
+
+  public async createTrigger(
+    triggerType: string,
+    payload: {
+      symbol: string;
+      condition: string;
+      price: number;
+      fundingRate?: string;
+      notification_method: string;
+    }
+  ): Promise<CustomResponse<null>> {
+    const url = `${BackEndBaseURL}/api/vip2/create?triggerType=${triggerType}`;
+    try {
+      const response = await axios.post(url, payload, { headers });
+      if (response.status === 200) {
+        return {
+          success: true,
+          message: "Trigger created successfully.",
+          data: null,
+          status: response.status,
+        } as CustomResponse<null>;
+      }
+
+      return {
+        success: false,
+        message: "Unexpected response.",
+        data: null,
+        status: response.status,
+      } as CustomResponse<null>;
+    } catch (error: any) {
+      console.error(error);
+
+      if (error.response) {
+        const status = error.response.status;
+        let message = "An error occurred.";
+
+        switch (status) {
+          case 401:
+            message = "Not logged in. Please log in to proceed.";
+            break;
+          case 403:
+            message = "Access denied.";
+            break;
+          default:
+            message = error.response.data.message || "An unexpected error occurred.";
+        }
+
+        return {
+          success: false,
+          message: message,
+          data: null,
+          status: status,
+        } as CustomResponse<null>;
+      } else {
+        return {
+          success: false,
+          message: "Unable to connect to the server.",
+          data: null,
+          status: 0,
+        } as CustomResponse<null>;
+      }
+    }
+  }
+
+  public async deleteTrigger(symbol: string, triggerType: string): Promise<CustomResponse<null>> {
+    const url = `${BackEndBaseURL}/api/vip2/delete/${symbol}?triggerType=${triggerType}`;
+    try {
+      const response = await axios.delete(url, { headers });
+      if (response.status === 200) {
+        return {
+          success: true,
+          message: "Trigger deleted successfully.",
+          data: null,
+          status: response.status,
+        } as CustomResponse<null>;
+      }
+
+      return {
+        success: false,
+        message: "Unexpected response.",
+        data: null,
+        status: response.status,
+      } as CustomResponse<null>;
+    } catch (error: any) {
+      console.error(error);
+
+      if (error.response) {
+        const status = error.response.status;
+        let message = "An error occurred.";
+
+        switch (status) {
+          case 401:
+            message = "Not logged in. Please log in to proceed.";
+            break;
+          case 403:
+            message = "Access denied.";
+            break;
+          default:
+            message = error.response.data.message || "An unexpected error occurred.";
+        }
+
+        return {
+          success: false,
+          message: message,
+          data: null,
+          status: status,
+        } as CustomResponse<null>;
+      } else {
+        return {
+          success: false,
+          message: "Unable to connect to the server.",
+          data: null,
+          status: 0,
+        } as CustomResponse<null>;
+      }
+    }
+  }
 }
 
 // Indicator's Trigger Operation
 export class IndicatorTriggerOperation {
   constructor() {}
 
-  public async createTrigger() {}
+  public async createTriggerForIndicator(
+    payload: {
+      symbol: string;
+      condition: string;
+      price: number;
+      indicators: string;
+      notification_method: string;
+    }
+  ): Promise<CustomResponse<null>> {
+    const url = `${BackEndBaseURL}/api/vip3/create`;
+    try {
+      const response = await axios.post(url, payload, { headers });
+      if (response.status === 200) {
+        return {
+          success: true,
+          message: response.data.message || "Indicator trigger created successfully.",
+          data: null,
+          status: response.status,
+        } as CustomResponse<null>;
+      }
 
-  public async getAlert() {}
+      return {
+        success: false,
+        message: "Unexpected response.",
+        data: null,
+        status: response.status,
+      } as CustomResponse<null>;
+    } catch (error: any) {
+      console.error(error);
 
-  public async deleteTrigger() {}
+      if (error.response) {
+        const status = error.response.status;
+        let message = "An error occurred.";
+
+        switch (status) {
+          case 401:
+            message = "Unauthorized. Please log in to proceed.";
+            break;
+          case 403:
+            message = "Access denied.";
+            break;
+          case 500:
+            message = error.response.data.message || "Error processing the trigger.";
+            break;
+          default:
+            message = error.response.data.message || "An unexpected error occurred.";
+        }
+
+        return {
+          success: false,
+          message: message,
+          data: null,
+          status: status,
+        } as CustomResponse<null>;
+      } else {
+        return {
+          success: false,
+          message: "Unable to connect to the server.",
+          data: null,
+          status: 0,
+        } as CustomResponse<null>;
+      }
+    }
+  }
+
+  public async getAlert(): Promise<CustomResponse<any[]>> {
+    const url = `${BackEndBaseURL}/api/vip3/get/alerts`;
+    try {
+      const response = await axios.get(url, { headers });
+      if (response.status === 200) {
+        return {
+          success: true,
+          message: "Alerts fetched successfully.",
+          data: response.data,
+          status: response.status,
+        } as CustomResponse<any[]>;
+      }
+  
+      return {
+        success: false,
+        message: "Unexpected response.",
+        data: [],
+        status: response.status,
+      } as CustomResponse<any[]>;
+    } catch (error: any) {
+      console.error(error);
+  
+      if (error.response) {
+        const status = error.response.status;
+        let message = "An error occurred.";
+  
+        switch (status) {
+          case 401:
+            message = "Unauthorized. Please log in to proceed.";
+            break;
+          case 403:
+            message = "Access denied.";
+            break;
+          default:
+            message = error.response.data.message || "An unexpected error occurred.";
+        }
+  
+        return {
+          success: false,
+          message: message,
+          data: [],
+          status: status,
+        } as CustomResponse<any[]>;
+      } else {
+        return {
+          success: false,
+          message: "Unable to connect to the server.",
+          data: [],
+          status: 0,
+        } as CustomResponse<any[]>;
+      }
+    }
+  }
+  
+
+  public async deleteTrigger(symbol: string): Promise<CustomResponse<null>> {
+    const url = `${BackEndBaseURL}/api/vip3/delete/${symbol}`;
+    try {
+      const response = await axios.delete(url, { headers });
+      if (response.status === 200) {
+        return {
+          success: true,
+          message: response.data.message || `${symbol} has been deleted successfully.`,
+          data: null,
+          status: response.status,
+        } as CustomResponse<null>;
+      }
+  
+      return {
+        success: false,
+        message: "Unexpected response.",
+        data: null,
+        status: response.status,
+      } as CustomResponse<null>;
+    } catch (error: any) {
+      console.error(error);
+  
+      if (error.response) {
+        const status = error.response.status;
+        let message = "An error occurred.";
+  
+        switch (status) {
+          case 401:
+            message = "Unauthorized. Please log in to proceed.";
+            break;
+          case 403:
+            message = "Access denied.";
+            break;
+          case 404:
+            message = "The specified symbol was not found.";
+            break;
+          default:
+            message = error.response.data.message || "An unexpected error occurred.";
+        }
+  
+        return {
+          success: false,
+          message: message,
+          data: null,
+          status: status,
+        } as CustomResponse<null>;
+      } else {
+        return {
+          success: false,
+          message: "Unable to connect to the server.",
+          data: null,
+          status: 0,
+        } as CustomResponse<null>;
+      }
+    }
+  }
+  
 }
